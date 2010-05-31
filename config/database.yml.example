@@ -1,0 +1,19 @@
+common: &common
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: kickstart
+  password: monkey
+  #host: localhost
+  #port: 5432
+  
+development:
+  <<: *common
+  database: kickstart_development
+
+test: &test
+  <<: *common
+  database: kickstart_test
+
+cucumber:
+  <<: *test

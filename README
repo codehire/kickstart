@@ -1,2 +1,17 @@
-This is the README file for the Realives project. 
-It probably should be replaced with something a bit more descriptive soon.
+Codefire kickstart Rails App
+
+Before you start:
+Make sure the project repo has been setup on Github and your account has been added as a collaborator.
+
+Usage:
+1. $ git clone git@github.com:codefire/kickstart.git $APP_NAME
+2. $ cd $APP_NAME; bundle install
+3. $ sed s/kickstart/$APP_NAME/g < config/database.yml.example > config/database.yml 
+4. edit config/database.yml username/password to suit your dev setup.
+5. $ sed s/kickstart/$APP_NAME/g < config/initializers/session_store.rb > config/initializers/session_store.rb
+6. $ git remote set-url origin git@github.com:codefire/$APP_NAME.git
+7. $ git push origin master
+
+If you've done all that right, you should have your new kickstart app committed to the project repo. You can now go ahead and edit the deploy.rb file for Capistrano.
+
+ $ sed s/kickstart/$APP_NAME/g < config/deploy.rb.example > config/deploy.rb
