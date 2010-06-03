@@ -15,3 +15,10 @@ Usage:
 If you've done all that right, you should have your new kickstart app committed to the project repo. You can now go ahead and edit the deploy.rb file for Capistrano.
 
  $ sed s/kickstart/$APP_NAME/g < config/deploy.rb.example > config/deploy.rb
+ 
+Deployment (both staging and production):
+
+1. Install git on the server: $ apt-get install git-core
+2. Install bundler: $ gem install bundler
+3. Install nokogiri dependencies: $ apt-get install libxslt1-dev libxml2-dev
+4. Copy deploy user's ssh pubkey and add it as a "Deploy Key" under the github repo: https://github.com/codefire/$APP_NAME/edit (Must be done under the codefire github account)
