@@ -9,7 +9,8 @@ Usage:
 3. $ sed s/kickstart/$APP_NAME/g < config/database.yml.example > config/database.yml 
 4. edit config/database.yml username/password to suit your dev setup.
 5. $ sed s/kickstart/$APP_NAME/g < config/initializers/session_store.rb > config/initializers/session_store.rb
-6. $ git remote set-url origin git@github.com:codefire/$APP_NAME.git
+NOTE: The next step assumes you have git v1.7 or later.
+6. $ git remote set-url origin git@github.com:codefire/$APP_NAME.git 
 7. $ git push origin master
 
 If you've done all that right, you should have your new kickstart app committed to the project repo. You can now go ahead and edit the deploy.rb file for Capistrano.
