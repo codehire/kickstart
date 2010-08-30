@@ -19,7 +19,7 @@ gem 'aasm'
 gem 'jrails'
 
 # Textile user content formatting
-gem 'RedCloth'
+gem 'RedCloth', :require => 'redcloth' # Must require explicitly as Bundler can't infer the lib to require
 
 # Paperclip for attachments, plus DJ for async resizes
 # http://jstorimer.com/ruby/2010/01/30/delayed-paperclip.html
