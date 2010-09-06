@@ -1,0 +1,13 @@
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: integrity
+  password: integrity
+  database: realives_test
+
+development:
+  <<: *test
+    
+cucumber:
+  <<: *test
