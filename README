@@ -1,0 +1,1 @@
+# rails new <app_name> -T -J -d [mysql|postgresql] -m https://github.com/codefire/kickstart/raw/master/kickstart.rb
