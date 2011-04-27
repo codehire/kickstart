@@ -38,6 +38,17 @@ gsub_file 'Gemfile', /^(# .*)?\n/, ''
 end
 
 after_bundle_install {
+  inject_into_file 'config/application.rb', :after => "config.filter_parameters += [:password]" do
+<<-END
+
+    config.generators do |g|
+      g.stylesheets false
+      g.test_framework :rspec
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
+END
+  end
+  
   # jquery-rails
   flags = " --ui" if ask("Do you want jQuery UI?#{YESNO_PROMPT}")
   generate("jquery:install#{flags}")
@@ -58,13 +69,15 @@ after_bundle_install {
   plugin('flag_shih_tzu', :git => 'git://github.com/xing/flag_shih_tzu.git')
 }
 
-
-gem 'ruby-debug19', :require => 'ruby-debug', :group => [:development, :test]
+if ruby =~ /1\.9/
+  gem 'ruby-debug19', :require => 'ruby-debug', :group => [:development, :test]
+else
+  gem 'ruby-debug', :group => [:development, :test]
+end
 
 # Append these group definitions for a much tidier Gemfile :)
 append_file 'Gemfile', %Q{
 group :development, :test do
-  gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'less'
 
   # can be useful in dev for dummy data
@@ -94,6 +107,7 @@ after_bundle_install {
   generate('cucumber:install', '--rspec', '--capybara')
   generate('rspec:install')
   generate('forgery')
+  plugin('more', :git => 'git://github.com/cloudhead/more.git')
 }
 
 DATABASES = %w(mysql pg both)
@@ -173,3 +187,17 @@ say "Bundle installing, Please wait...", Thor::Shell::Color::GREEN
 run 'bundle install'
 say "Bundle install complete", Thor::Shell::Color::GREEN
 after_bundle_install
+
+# Cleanup
+remove_file 'README'
+remove_file 'doc/README_FOR_APP'
+remove_file 'public/index.html'
+remove_file 'public/images/rails.png'
+run 'mv config/database.yml config/database.yml.example'
+
+# Git ignores
+append_file '.gitignore', <<-END
+.DS_Store
+config/database.yml
+END
+
