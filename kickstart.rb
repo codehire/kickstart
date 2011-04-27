@@ -116,9 +116,9 @@ case db
 when 'mysql'
   gem 'mysql'
 when 'pg'
-  gem 'postgres-pr'
+  gem 'pg'
 when 'both'
-  gem 'postgres-pr'
+  gem 'pg'
   gem 'mysql'
 end
 
