@@ -41,6 +41,10 @@ after_bundle_install {
   inject_into_file 'config/application.rb', :after => "config.filter_parameters += [:password]" do
 <<-END
 
+    # Load all files in locale
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # Customise generators
     config.generators do |g|
       g.stylesheets false
       g.test_framework :rspec
@@ -79,14 +83,12 @@ end
 append_file 'Gemfile', %Q{
 group :development, :test do
   gem 'less'
+  gem 'rails3-generators'
 
   # can be useful in dev for dummy data
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'forgery'
-end
-
-group :test do
   gem 'cover_me'
   gem 'timecop'
   gem 'rspec-rails'
@@ -164,6 +166,10 @@ end
 
 if yes? %Q{Do you need to manage user preferences?#{YESNO_PROMPT}}
   gem 'preferences'
+end
+
+if yes? %Q{Do you want to use High Voltage (https://github.com/thoughtbot/high_voltage) to render static pages?#{YESNO_PROMPT}}
+  gem 'high_voltage'
 end
 
 if yes? %Q{Do you need to allow user comments?#{YESNO_PROMPT}}
