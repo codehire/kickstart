@@ -93,6 +93,7 @@ group :development, :test do
   gem 'timecop'
   gem 'rspec-rails'
   gem 'cucumber-rails'
+  gem 'email_spec'
   gem 'capybara'
   gem 'akephalos'
   gem 'database_cleaner'
@@ -107,7 +108,21 @@ end
 
 after_bundle_install {
   generate('cucumber:install', '--rspec', '--capybara')
+  create_file('features/support/env_ext.rb') do
+    <<-END
+require 'factory_girl/step_definitions'
+require 'email_spec/cucumber'
+
+# Uncomment to use akephalos as the Javascript driver for Capybara
+# (You can still tag things with @selenium to test in Firefox)
+# require 'akephalos'
+# Capybara.javascript_driver = :akephalos
+
+Capybara.save_and_open_page_path = File.join(Rails.root, 'tmp', 'capybara')
+    END
+  end
   generate('rspec:install')
+  generate('email_spec:steps')
   generate('forgery')
   plugin('more', :git => 'git://github.com/cloudhead/more.git')
 }
