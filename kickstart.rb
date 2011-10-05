@@ -148,7 +148,7 @@ if yes? %Q{Would you like to use the Inherited Resources gem?
   (see: https://github.com/josevalim/inherited_resources for details)#{YESNO_PROMPT}}
   gem 'inherited_resources'
   after_bundle_install { 
-    inject_into_class "app/controllers/application_controller.rb", 'ApplicationController', do
+    inject_into_class "app/controllers/application_controller.rb", 'ApplicationController' do
 <<-END
   # Uncomment the following to use inherited resources globally
   # inherit_resources
